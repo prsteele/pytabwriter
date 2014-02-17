@@ -67,6 +67,8 @@ class TabWriter:
 
         """
 
+        self._process_strings()
+
         # Get the width of each column
         columns = max(len(row) for row in self.buffer)
         column_widths = [0] * columns

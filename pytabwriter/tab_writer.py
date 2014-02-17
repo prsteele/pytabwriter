@@ -170,7 +170,9 @@ class TabWriter:
             self._process_strings()
             self._buffer.append(x)
         else:
-            self._strings.append(str(x))
+            x = str(x)
+            if len(x) > 0:
+                self._strings.append(x)
 
     def writeln(self, x):
         """Add a row of text to the output buffer.
@@ -178,7 +180,7 @@ class TabWriter:
         Parameters
         ----------
 
-        x : str
+        x : str or list
             A row (or rows) of text to be added to the output
             buffer. This text will begin on the line after the
             existing buffer text, and subsequent calls to `write` or
@@ -187,7 +189,7 @@ class TabWriter:
         """
 
         self._process_strings()
-        self._strings.append(str(x))
+        self.write(x)
         self._process_strings()
 
     def _process_strings(self):
@@ -200,7 +202,14 @@ class TabWriter:
             return
 
         text = ''.join(self._strings)
-        self._buffer.extend(line.split('\t') for line in text.split('\n'))
+        lines = text.split('\n')
+
+        # If the final character was a newline, don't add on a blank
+        # line -- we would need '\n\n' for a blank line
+        if lines[-1] == '':
+            lines = lines[:-1]
+        
+        self._buffer.extend(line.split('\t') for line in lines)
         self._strings = []
 
     def __str__(self):

@@ -6,9 +6,12 @@ class TabWriter:
     def __init__(self):
         self.buffer = []
         self._strings = []
+
+        # These fields are controlled by properties
         self._padding = 1
         self._padchar = ' '
         self._alignment = 'l'
+        self._tabchar = '\t'
 
     @property
     def padding(self):
@@ -16,7 +19,7 @@ class TabWriter:
 
     @padding.setter
     def padding(self, p):
-        self._padding = p
+        self._padding = int(p)
 
     @property
     def alignment(self):
@@ -29,6 +32,26 @@ class TabWriter:
             raise ValueError(msg)
         
         self._alignment = align
+
+    @property
+    def padchar(self):
+        return self._padchar
+
+    @padchar.setter
+    def padchar(self, c):
+        c = str(c)
+        if len(c) > 1:
+            msg = 'Pad character must be one character, not {}'.format(c)
+            raise ValueError(msg)
+        self._padchar = c
+
+    @property
+    def tabchar(self):
+        return self._tabchar
+
+    @tabchar.setter
+    def tabchar(self, c):
+        self._tabchar = str(c)
 
     def write(self, x):
         """Add text to the output buffer.

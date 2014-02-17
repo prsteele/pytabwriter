@@ -1,7 +1,7 @@
 PyTabWriter
 ===========
 
-A package for formatting text in aligned columns; inspired by Go's `text/tabwriter` (package)[http://golang.org/pkg/text/tabwriter].
+A package for formatting text in aligned columns; inspired by Go's `text/tabwriter` [package](http://golang.org/pkg/text/tabwriter).
 
 Example
 -------

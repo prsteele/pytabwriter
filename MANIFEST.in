@@ -1,0 +1,2 @@
+include README.md setup.py LICENSE.txt
+recursive-include pytabwriter *.py

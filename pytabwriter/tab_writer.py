@@ -209,7 +209,7 @@ class TabWriter:
         if lines[-1] == '':
             lines = lines[:-1]
         
-        self._buffer.extend(line.split('\t') for line in lines)
+        self._buffer.extend(line.split(self.tabchar) for line in lines)
         self._strings = []
 
     def __str__(self):
